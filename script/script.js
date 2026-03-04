@@ -17,12 +17,41 @@ const displayLevelWord = (words) => {
   const wordContainer = document.getElementById("word-container");
   wordContainer.innerHTML = "";
 
+  if (words.length === 0) {
+    wordContainer.innerHTML = `
+       <div
+        class="text-center col-span-full rounded-md py-10 space-y-6 font-bangla"
+      >
+        <img class="mx-auto" src="./assets/alert-error.png" alt="">
+        <p class="text-xl font-medium text-gray-500">
+          এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।
+        </p>
+        <h2 class="font-bold text-4xl">নেক্সট Lesson এ যান</h2>
+      </div>
+    `;
+    return;
+  }
+
   words.forEach((word) => {
     // console.log(word);
 
     const card = document.createElement("div");
     card.innerHTML = `
-       <p>Cat</p>
+       <div
+        class="bg-white rounded-xl text-center shadow-sm py-10 px-5 space-y-3"
+      >
+        <h2 class="font-bold text-2xl">${word.word ? word.word : "Words not found"}</h2>
+        <p class="font-semibold">Meaning/Pronunciation</p>
+        <div class="text-2xl font-medium font-bangla">"${word.meaning ? word.meaning : "কোনো শব্দ পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "Pronunciation not found"}"</div>
+        <div class="flex justify-between items-center">
+          <button class="btn btn-soft btn-info">
+            <i class="fa-solid fa-circle-info"></i>
+          </button>
+          <button class="btn btn-soft btn-info">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+        </div>
+      </div>
     `;
     wordContainer.append(card);
   });
